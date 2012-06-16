@@ -1,0 +1,19 @@
+- if (!everyauth.loggedIn)
+  h2 Login with Facebook
+  #fb-login.fb_button(style='background-position: left -188px')
+    a.fb_button_medium(href='/auth/facebook')
+      span#fb_login_text.fb_button_text
+        Connect with Facebook
+- else
+  h2 Logged In
+  - if (everyauth.facebook)
+    h3 Facebook User Data
+    p= JSON.stringify(everyauth.facebook.user)
+  h3
+    a(href='/upload') Upload
+    br
+    a(href='/process') Process
+    br
+    a(href='/list') List
+    br
+    a(href='/logout') Logout

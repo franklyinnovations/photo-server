@@ -1,0 +1,12 @@
+h2 Image List
+- each image,i in images
+	- var filename='/thumb/'+images[i].path+"."+images[i].ext;
+	div.box
+		a(href='/photo/'+images[i]._id)
+			img(src=filename)
+br		
+div(class="fb-comments",data-href="http://localhost:8080/list",data-num-posts="5",data-width="500")
+br
+div(class="fb-activity",data-width="500",data-height="300",data-header="true",data-border-color="#efefef",data-font="lucida grande",data-recommendations="true")
+br
+div(class="fb-like-box",data-href="http://localhost:8080",data-width="350",data-show-faces="true",data-stream="true",data-header="true")

@@ -1,0 +1,102 @@
+<div id="fb-root"></div>
+<div id="content"></div>
+<div class="fb-comments" data-href="http://localhost:8080" data-num-posts="2" data-width="470"></div>
+<script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '154938707930956', // App ID
+      channelUrl : 'http://localhost:8080/channel.html', // Channel File
+      status     : true, // check login status
+      cookie     : true, // enable cookies to allow the server to access the session
+      xfbml      : true  // parse XFBML
+
+	});
+
+
+
+	FB.getLoginStatus(function(response) {
+		if(response.status === 'connected') {
+			// the user is logged in and has authenticated your
+			// app, and response.authResponse supplies
+			// the user's ID, a valid access token, a signed
+			// request, and the time the access token
+			// and signed request each expire
+			console.debug("user is connected", response);
+			var uid = response.authResponse.userID;
+			var accessToken = response.authResponse.accessToken;
+
+			FB.api('/ksuayan/friends', function(response) {
+				var data = response.data;
+				for (var i=0; i<data.length; i++) {
+					var d = data[i];
+					console.log(d.name, d.id);
+				}
+				
+			});
+			
+			
+			/*
+
+			FB.api('/ksuayan/photos', { limit: 30 }, function(response) {
+				var photos = response.data;
+				
+				console.debug("photos", photos);
+				console.debug("jQuery", $);
+				
+				for (var i=0; i<photos.length; i++) {
+					var photo = photos[i];
+					var imgTag = $('<img src="'+photo.source+'">');
+					$("#content").append(imgTag);
+				}
+				
+			});
+
+			FB.api('/platform/posts', { limit: 10 }, function(response) {
+	
+				console.debug(response);
+
+				for (var i=0, l=response.length; i<l; i++) {
+					var post = response[i];
+					if (post.message) {
+						console.debug('Message: ' + post.message);
+					} else if (post.attachment && post.attachment.name) {
+						console.debug('Attachment: ' + post.attachment.name);
+					}
+				}
+			});
+			
+			var body = 'Testing FB.api in JavaScript.';
+			FB.api('/me/feed', 'post', { message: body }, function(response) {
+  				if (!response || response.error) {
+    				console.debug('Error occured');
+  				} else {
+    				console.debug('Post ID: ' + response.id);
+  				}
+			});
+			*/
+			
+		} else if(response.status === 'not_authorized') {
+			// the user is logged in to Facebook,
+			// but has not authenticated your app
+			console.debug("logged in but not authorized");
+
+		} else {
+			console.debug("not logged in");
+			// the user isn't logged in to Facebook.
+		}
+	});
+	
+
+    // Additional initialization code here
+  };
+
+  // Load the SDK Asynchronously
+  (function(d){
+     var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement('script'); js.id = id; js.async = true;
+     js.src = "//connect.facebook.net/en_US/all.js";
+     ref.parentNode.insertBefore(js, ref);
+   }(document));
+</script>
+<script src="//code.jquery.com/jquery-latest.min.js"></script>
