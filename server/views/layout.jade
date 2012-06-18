@@ -1,9 +1,9 @@
 !!! 5
 html
   head
-    title= typeof(title) !== 'undefined' ? title : "everyauth example"
-    link(rel="stylesheet",href="style/html5reset-1.6.1.css")
-    link(rel="stylesheet",href="style/style.css")
+    title= typeof(title) !== 'undefined' ? title : "Photo Share"
+    link(rel="stylesheet",href="/style/html5reset-1.6.1.css")
+    link(rel="stylesheet",href="/style/style.css")
     script(src='http://static.ak.fbcdn.net/connect/en_US/core.js')
     script(type='text/javascript')
       (function(d, s, id) {
@@ -14,7 +14,9 @@ html
       fjs.parentNode.insertBefore(js, fjs);
       }(document, 'script', 'facebook-jssdk'));
   body
-    h1 Social
     div(id="fb-root")
-    #main
-      != body
+    div.content
+        a(href="/")
+            h1.masthead Photo Share
+        #main
+        != body
