@@ -58,6 +58,10 @@ app.get('/', function (req, res) {
   res.render('home');
 });
 
+app.get('/profile', function (req, res) {
+  res.render('fbinfo');
+});
+
 app.get('/process', function (req, res) {
 	socialdb.processIncoming();
 	res.render('processed');

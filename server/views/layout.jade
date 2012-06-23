@@ -1,9 +1,12 @@
 !!! 5
-html
+html(lang="en")
   head
+    meta(charset="utf-8)
+    meta(name="viewport",content="width=device-width, initial-scale=1.0")
+    meta(name="description",content="")
+    meta(name="author",content="")
     title= typeof(title) !== 'undefined' ? title : "Photo Share"
-    link(rel="stylesheet",href="/style/html5reset-1.6.1.css")
-    link(rel="stylesheet",href="/style/style.css")
+    link(rel="stylesheet",href="/css/bootstrap.css")
     script(src='http://static.ak.fbcdn.net/connect/en_US/core.js')
     script(type='text/javascript')
       (function(d, s, id) {
@@ -13,10 +16,30 @@ html
       js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=154938707930956";
       fjs.parentNode.insertBefore(js, fjs);
       }(document, 'script', 'facebook-jssdk'));
+    style(type="text/css")
+      body {
+        padding-top: 60px;
+        padding-bottom: 40px;
+      }
+      .sidebar-nav {
+        padding: 9px 0;
+      }
   body
-    div(id="fb-root")
+    include includes/header
     div.content
-        a(href="/")
-            h1.masthead Photo Share
-        #main
-        != body
+      #main
+      != body
+    div(id="fb-root")
+    script(src="/js/jquery.js")
+    script(src="/js/bootstrap-transition.js")
+    script(src="/js/bootstrap-alert.js")
+    script(src="/js/bootstrap-modal.js")
+    script(src="/js/bootstrap-dropdown.js")
+    script(src="/js/bootstrap-scrollspy.js")
+    script(src="/js/bootstrap-tab.js")
+    script(src="/js/bootstrap-tooltip.js")
+    script(src="/js/bootstrap-popover.js")
+    script(src="/js/bootstrap-button.js")
+    script(src="/js/bootstrap-collapse.js")
+    script(src="/js/bootstrap-carousel.js")
+    script(src="/js/bootstrap-typeahead.js")

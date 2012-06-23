@@ -1,0 +1,27 @@
+div(class="navbar navbar-fixed-top")
+  div(class="navbar-inner")
+    div(class="container-fluid")
+      a(class="btn btn-navbar",data-toggle="collapse",data-target=".nav-collapse")
+        span(class="icon-bar")
+        span(class="icon-bar")
+      a(class="brand",href="/") PhotoShare
+      div(class="btn-group pull-right")
+        - if (everyauth.facebook)
+          a(class="btn dropdown-toggle",data-toggle="dropdown",href="#")
+            i(class="icon-user")
+            - var fb = everyauth.facebook.user
+            = fb.username
+            span(class="caret")
+          ul(class="dropdown-menu")
+            li
+              a(href="/profile") Profile
+            li(class="divider")
+            li
+              a(href="/logout") Sign Out
+        - else
+          #fb-login.fb_button(style='background-position: left -188px')
+            a.fb_button_medium(href='/auth/facebook')
+              span#fb_login_text.fb_button_text
+                Connect with Facebook
+      div(class="nav-collapse")
+        include authNav

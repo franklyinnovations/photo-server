@@ -118,7 +118,7 @@ SocialDB.prototype.processImage = function(doc) {
 	fs.rename(doc.path, tmpFilename, function(err) {
 		if(err) {
 			console.log("error:", err)
-			throw err;			
+			throw err;
 		}
 		easyimg.info(tmpFilename, function(err, stdout, stderr) {
 			if(err) {
