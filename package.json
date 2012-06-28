@@ -25,9 +25,9 @@
   },
   "dependencies": {
     "express": ">=2.3.10",
-    "jade": "0.20.3",
+    "jade": "0.26.2",
     "connect": ">=1 <2",
-    "everyauth": "0.2.32",
+    "everyauth": "https://github.com/akinsella/everyauth/tarball/master",
     "easyimage": ">=0.1.2",
     "imagemagick": "0.1.2",
     "mongoose": ">=2.5.10",
