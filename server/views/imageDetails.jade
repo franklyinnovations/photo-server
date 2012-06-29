@@ -1,7 +1,5 @@
-h2 Image Details
 - var filename='/images/'+image[0].path+"."+image[0].ext;
 div.box
     a(href="/list")
         img.photo(src=filename)
-br.clear
-div(class="fb-comments",data-href=filename,data-num-posts="5",data-width="500")
+include includes/comment

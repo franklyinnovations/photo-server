@@ -1,9 +1,7 @@
-h2 Image List
+ul.thumbnails
 - each image,i in images
-	- var filename='/thumb/'+images[i].path+"."+images[i].ext;
-	div.thumb
-		a(href='/photo/'+images[i]._id)
-			img(src=filename)
-br.clear
-div(class="fb-comments",data-href="/list",data-num-posts="5",data-width="500")
-br.clear
+    - var filename='/thumb/'+images[i].path+"."+images[i].ext;
+    li.span2
+        a.thumbnail(href='/photo/'+images[i]._id)
+            img(src=filename)
+include includes/comment

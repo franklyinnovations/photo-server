@@ -1,0 +1,20 @@
+- if ('undefined' !== typeof errors && errors.length)
+  ul#errors
+    - each error in errors
+      li.error= error
+form(action='/feed', method='post')
+  #titleField
+    label(for='title') Title
+    input(type='text', name='title')
+  #bodyField
+    label(for='body') Body
+    textarea(name='body', rows=5,cols=60)
+  #submit
+    input(type='submit') Post
+    
+- each feed in newsfeed
+  hr
+  a(href='/feed/'+feed._id)
+    h3
+      = feed.title
+  = feed.body

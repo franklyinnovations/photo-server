@@ -1,7 +1,9 @@
 var express = require('express')
   , everyauth = require('everyauth')
   , conf = require('./conf')
-  , socialdb = require('./socialdb');
+  , socialdb = require('./socialdb')
+  , feed = require('./feed')
+;
 
 var PORT = 8080;
 var usersById = {};
@@ -56,6 +58,24 @@ app.configure( function () {
 
 app.get('/', function (req, res) {
   res.render('home');
+});
+
+app.get('/feed', getFeed);
+app.get('/feed/:id', getFeed);
+
+function getFeed(req, res) {
+  feed.getNewsFeed(req, function(result){
+    res.render('form', {locals:{newsfeed:result}});
+  });
+};
+
+app.post('/feed', function (req, res) {
+    feed.save({
+        title: req.body.title, 
+        body: req.body.body,
+        fbid: req.user.facebook.id
+    });
+    res.render('processForm');
 });
 
 app.get('/profile', function (req, res) {

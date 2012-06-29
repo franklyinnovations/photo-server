@@ -24,12 +24,16 @@ html(lang="en")
       .sidebar-nav {
         padding: 9px 0;
       }
+      .clear {
+        clear:both;
+        margin: 15px 0px 0px 15px;
+       }
+      
   body
     include includes/header
-    div.content
-      #main
-      != body
-    div(id="fb-root")
+    div.container-fluid
+        div.row-fluid
+            != body
     script(src="/js/jquery.js")
     script(src="/js/bootstrap-transition.js")
     script(src="/js/bootstrap-alert.js")
@@ -43,3 +47,4 @@ html(lang="en")
     script(src="/js/bootstrap-collapse.js")
     script(src="/js/bootstrap-carousel.js")
     script(src="/js/bootstrap-typeahead.js")
+    div(id="fb-root")
