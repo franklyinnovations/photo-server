@@ -10,8 +10,7 @@ var usersById = {};
 var nextUserId = 0;
 var usersByFbId = {};
 
-everyauth.debug = true;
-
+everyauth.debug = false;
 
 function addUser (source, sourceUser) {
   var user;
@@ -24,6 +23,27 @@ function addUser (source, sourceUser) {
     user[source] = sourceUser;
   }
   return user;
+}
+
+function getFeed(req, res) {
+  feed.getNewsFeed(req, function(result){
+    res.render('form', {locals:{newsfeed:result}});
+  });
+};
+
+function mergeStruct(source, override) {
+    if (!source) return;
+    var copy = {};
+    for (var key in source) {
+        copy[key] = source[key];
+    }
+    
+    for (var key in override) {
+        copy[key] = override[key];
+    }
+    
+    console.log(copy);
+    return copy;
 }
 
 everyauth.everymodule
@@ -54,21 +74,21 @@ var app = express.createServer(
 app.configure( function () {
   app.set('view engine', 'jade');
   app.set('views', __dirname + '/views');
+  app.set('view options', {config: conf.app})
+});
+
+app.all("/",function(req,res,next){
+    console.log("all() ...");
+    next();
 });
 
 app.get('/', function (req, res) {
+  console.log("get: /");
   res.render('home');
 });
 
 app.get('/feed', getFeed);
 app.get('/feed/:id', getFeed);
-
-function getFeed(req, res) {
-  feed.getNewsFeed(req, function(result){
-    res.render('form', {locals:{newsfeed:result}});
-  });
-};
-
 app.post('/feed', function (req, res) {
     feed.save({
         title: req.body.title, 
@@ -87,17 +107,28 @@ app.get('/process', function (req, res) {
 	res.render('processed');
 });
 
+app.get('/list', function (req, res) {
+    var images = socialdb.getImages(req.user.facebook.id, 
+    function(result){
+        res.render('imageList', 
+        {locals:{images:result}});
+    });
+});
+
 app.get('/photo/:id', function (req, res) {
 	var image = socialdb.getImage(req.params.id, 
 	function(result){
-		res.render('imageDetails', {locals:{image:result}});
-	});
-});
-
-app.get('/list', function (req, res) {
-	var images = socialdb.getImages(req.user.facebook.id, 
-	function(result){
-		res.render('imageList', {locals:{images:result}});
+	    
+	    var override = {
+	        og_image: conf.app.host + "/images/" + result[0].path +"."+ result[0].ext,
+	        og_url: conf.app.host + "/photo/" + result[0].path
+	    };
+	    
+		res.render('imageDetails', {
+		    locals:{
+                image: result,
+                config: mergeStruct(conf.app, override)
+		}});
 	});
 });
 
@@ -122,8 +153,6 @@ app.post('/upload', function (req, res) {
 
 
 app.listen(PORT);
-
 console.log('Go to http://localhost:'+PORT);
 console.log('path: ',__dirname);
-
 module.exports = app;

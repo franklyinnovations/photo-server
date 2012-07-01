@@ -5,3 +5,19 @@
             a(href="#about") About
           li
             a(href="#contact") Contact
+            
+    meta(name="description",content=description)
+    meta(name="author",content=author)
+    meta(property="fb:app_id",content="154938707930956")
+    meta(property="og:type",content="suayan-com:photo")
+    meta(property="og:url",content=og_url)
+    meta(property="og:title",content=og_title)
+    meta(property="og:image",content=og_image)
+    
+config:{
+            og_image:og_image,
+            og_url:og_url,
+            og_type:conf.app.og_type,
+            og_title:conf.app.og_title
+          }
+    

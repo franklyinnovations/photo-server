@@ -1,10 +1,8 @@
 h2 Upload
-
 - if ('undefined' !== typeof errors && errors.length)
 	ul#errors
 	- each error in errors
 		li.error= error
-
 form(action='upload',enctype='multipart/form-data',method='post')
 	#title
 		input(type='text',name='title')

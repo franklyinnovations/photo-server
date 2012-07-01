@@ -1,6 +1,6 @@
 div.hero-unit
-  h1 PhotoShare
-  p PhotoShare is a sandbox application integrating various technologies: MongoDB, Mongoose ODM, ExpressJS Framework, Jade Templates, EveryAuth and the Facebook JSSDK. Image processing is provided by ImageMagick and EasyImage NPM. Base CSS definitions and UI components are based on Twitter Bootstrap.
+  h1=config.name
+  p=config.description
   - if (everyauth.loggedIn)
     a(class="btn btn-primary btn-large",href="/logout") Sign off
   - else
