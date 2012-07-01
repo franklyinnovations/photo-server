@@ -10,8 +10,7 @@ form(action='/feed', method='post')
     label(for='body') Body
     textarea(name='body', rows=5,cols=60)
   #submit
-    input(type='submit') Post
-    
+    input(type='submit',class='btn btn-primary') Post
 - each feed in newsfeed
   hr
   a(href='/feed/'+feed._id)

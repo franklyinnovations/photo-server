@@ -1,8 +1,10 @@
 - if (everyauth.loggedIn)
 - var fb = everyauth.facebook.user
-ul
-  li= fb.id
-  li= fb.name
-  li= fb.link
-  li= fb.username
-  li= fb.email
+- var profilePic = "http://graph.facebook.com/"+fb.id+"/picture?type=large"
+- var name=fb.name +" ("+fb.username+")"
+div.hero-unit
+  h2 Facebook Profile
+  img(src=profilePic)
+  p
+  a(class="btn btn-primary btn-large", href=fb.link)
+    = name

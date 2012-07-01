@@ -5,7 +5,7 @@ var express = require('express')
   , feed = require('./feed')
 ;
 
-var PORT = 8080;
+var PORT = 80;
 var usersById = {};
 var nextUserId = 0;
 var usersByFbId = {};

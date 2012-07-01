@@ -26,7 +26,7 @@ var SocialDB = function(){
 	this.uploadPath = "/tmp/test";
 	this.thWidth = 200;
 	this.thHeight = 200;
-	this.width = 720;
+	this.width = 800;
 	this.height = 720;
 	
 	this.db = mongoose.createConnection('mongodb://localhost/test');
