@@ -99,7 +99,7 @@ app.post('/feed', function (req, res) {
 });
 
 app.get('/profile', function (req, res) {
-  res.render('fbinfo');
+  res.render('fbInfo');
 });
 
 app.get('/process', function (req, res) {
@@ -121,7 +121,7 @@ app.get('/photo/:id', function (req, res) {
 	    
 	    var override = {
 	        og_image: conf.app.host + "/images/" + result[0].path +"."+ result[0].ext,
-	        og_url: conf.app.host + "/photo/" + result[0].path
+	        og_url: conf.app.host + "/photo/" + result[0]._id
 	    };
 	    
 		res.render('imageDetails', {

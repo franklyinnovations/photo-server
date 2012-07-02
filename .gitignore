@@ -1,0 +1,7 @@
+node_modules
+server/conf.js
+server/public/images
+server/public/thumb
+server/public/js
+server/public/img
+server/public/css
