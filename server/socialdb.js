@@ -14,6 +14,7 @@ var ImagePost = new Schema({
 	width     : Number,
 	height    : Number,
 	title     : {type: String, default: ""},
+	description : {type: String, default: ""},
 	status	  : {type: String, default: "incoming"},
 	date      : {type: Date, default: Date.now}
 });
@@ -33,20 +34,22 @@ var SocialDB = function(){
 	this.ImagePostModel = this.db.model('ImagePost', ImagePost);
 };
 
-SocialDB.prototype.saveImages = function(images, user) {
+SocialDB.prototype.saveImages = function(images, user, title, description) {
 	console.log("saveImages");
 	if (images.length > 1) {
 		for (var i=0; i<images.length; i++) {
-			this.saveImagePost(images[i],user);			
+			this.saveImagePost(images[i],user, title, description);
 		}
 	} else {
-		this.saveImagePost(imagess, user);
+		this.saveImagePost(imagess, user, title, description);
 	}
 };
 
-SocialDB.prototype.saveImagePost = function(image, user) {
+SocialDB.prototype.saveImagePost = function(image, user, title, description) {
 	console.log("file: " + image.path + " : " + image.type + " : " + image.size);
 	var instance = new this.ImagePostModel({
+	    title: title,
+	    description: description,
 		type: image.type,
 		size: image.size,
 		path: image.path,
@@ -57,7 +60,6 @@ SocialDB.prototype.saveImagePost = function(image, user) {
 
 SocialDB.prototype.getImage = function(id, callback) {
 	var result = null;
-	console.log(">>> id", id);
 	this.ImagePostModel.find({status:"live", _id:id }, function(err,doc){
 		if (err) {
 			console.log(err);

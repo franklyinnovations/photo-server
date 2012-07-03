@@ -1,12 +1,16 @@
 h2 Upload
 - if ('undefined' !== typeof errors && errors.length)
-	ul#errors
-	- each error in errors
-		li.error= error
+    ul#errors
+    - each error in errors
+        li.error= error
 form(action='upload',enctype='multipart/form-data',method='post')
-	#title
-		input(type='text',name='title')
-	#filefield
-		input(type='file',name='uploads',multiple='multiple')
-	#send
-		input(type='submit',value='Upload',class='btn btn-primary')
+    #filefield
+        input(type='file',name='uploads',multiple='multiple')
+    br.clear
+    #title
+        input(type='text',name='title')
+    #description
+        label(for='description') Description
+        textarea(name='description',rows=5,cols=60)
+    #send
+        input(type='submit',value='Upload',class='btn btn-primary')

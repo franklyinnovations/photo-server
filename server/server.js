@@ -37,12 +37,9 @@ function mergeStruct(source, override) {
     for (var key in source) {
         copy[key] = source[key];
     }
-    
     for (var key in override) {
         copy[key] = override[key];
     }
-    
-    console.log(copy);
     return copy;
 }
 
@@ -118,12 +115,12 @@ app.get('/list', function (req, res) {
 app.get('/photo/:id', function (req, res) {
 	var image = socialdb.getImage(req.params.id, 
 	function(result){
-	    
 	    var override = {
+            description: result[0].description,
+	        og_title: result[0].title,
 	        og_image: conf.app.host + "/images/" + result[0].path +"."+ result[0].ext,
 	        og_url: conf.app.host + "/photo/" + result[0]._id
 	    };
-	    
 		res.render('imageDetails', {
 		    locals:{
                 image: result,
@@ -137,19 +134,24 @@ app.get('/upload', function (req, res) {
 });
 
 // multi-file upload
-app.post('/upload', function (req, res) {
+
+app.post('/upload', function(req, res) {
     var files = req.files.uploads;
-    if (req.user.facebook){
-        if (files instanceof Array) {
-	  	    socialdb.saveImages(files, req.user.facebook);
-		} else {
-			socialdb.saveImagePost(files, req.user.facebook);
-		}
+    var user = req.user.facebook;
+    var title = req.body.title;
+    var description = req.body.description;
+    if(user) {
+        if(files instanceof Array) {
+            socialdb.saveImages(files, user, title, description);
+        } else {
+            socialdb.saveImagePost(files, user, title, description);
+        }
     } else {
-    	console.log("not logged in")
+         console.log("not logged in")
     }
     res.render('home');
 });
+
 
 
 app.listen(PORT);
