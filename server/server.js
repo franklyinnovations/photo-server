@@ -59,19 +59,20 @@ everyauth
     .redirectPath('/');
 
 var app = express.createServer(
-    express.bodyParser({uploadDir:'/tmp/test'})
-  , express.static(__dirname + "/public")
-  , express.favicon()
-  , express.cookieParser()
-  , express.session({ secret: 'boybastos'})
-  , everyauth.middleware()
+    express.bodyParser({uploadDir:'/tmp/test'}),
+    express.static(__dirname + "/public"),
+    express.favicon(),
+    express.cookieParser(),
+    express.session({ secret: 'boybastos'}),
+    express.errorHandler({ dumpExceptions: true, showStack: true }),
+    everyauth.middleware()
 );
 
 
 app.configure( function () {
   app.set('view engine', 'jade');
   app.set('views', __dirname + '/views');
-  app.set('view options', {config: conf.app})
+  app.set('view options', {config: conf.app});
 });
 
 app.all("/",function(req,res,next){
@@ -152,6 +153,61 @@ app.post('/upload', function(req, res) {
     res.render('home');
 });
 
+/*
+ * API Server Section
+ */
+
+app.get('/api', function (req, res) {
+  res.send('API is running');
+});
+
+app.get('/api/photo', function (req, res){
+  return socialdb.ImagePostModel.find(function (err, photos) {
+    if (!err) {
+      return res.send(photos);
+    } else {
+      return console.log(err);
+    }
+  });
+});
+
+app.get('/api/photo/:id', function (req, res){
+  return socialdb.ImagePostModel.findById(req.params.id, function (err, photos) {
+    if (!err) {
+      return res.send(photos);
+    } else {
+      return console.log(err);
+    }
+  });
+});
+
+app.put('/api/photo/:id', function (req, res){
+  return socialdb.ImagePostModel.findById(req.params.id, function (err, photo) {
+    photo.title = req.body.title;
+    photo.description = req.body.description;
+    return photo.save(function (err) {
+      if (!err) {
+        console.log("updated");
+      } else {
+        console.log(err);
+      }
+      return res.send(photo);
+    });
+  });
+});
+
+app.delete('/api/photo/:id', function (req, res){
+  return socialdb.ImagePostModel.findById(req.params.id, function (err, photo) {
+    return photo.remove(function (err) {
+      if (!err) {
+        console.log("removed");
+        return res.send('');
+      } else {
+        console.log(err);
+      }
+    });
+  });
+});
 
 
 app.listen(PORT);
