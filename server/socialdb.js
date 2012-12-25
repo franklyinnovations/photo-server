@@ -84,6 +84,19 @@ SocialDB.prototype.getImages = function(userID, callback) {
 	});
 };
 
+SocialDB.prototype.getAllImages = function(callback) {
+    var result = null;
+    this.ImagePostModel.find({},function(err,docs){
+        if (err) {
+            console.log(err);
+            return;
+        }
+        if (callback && typeof callback ==='function') {
+            callback(docs);
+        }
+    });
+};
+
 SocialDB.prototype.processIncoming = function() {
 	this.ImagePostModel.find({status:"incoming"}, socialdb.processImages);
 };

@@ -113,6 +113,14 @@ app.get('/list', function (req, res) {
     });
 });
 
+app.get('/listall', function (req, res) {
+    var images = socialdb.getAllImages(function(result){
+        res.render('imageList', 
+        {locals:{images:result}});
+    });
+});
+
+
 app.get('/photo/:id', function (req, res) {
 	var image = socialdb.getImage(req.params.id, 
 	function(result){
