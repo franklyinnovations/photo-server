@@ -1,3 +1,4 @@
+.project
 node_modules
 server/conf.js
 server/public/images
